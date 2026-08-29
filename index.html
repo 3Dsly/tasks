@@ -14,17 +14,25 @@
     --hi:#ff5964; --md:#ffb347; --lo:#3ddad0; --acc:#7dd3fc; --acc2:#b57bff;
     --radius:14px;
   }
-  body[data-user="sylvie"]{
-    --bg:#190f18; --bg2:#2a1626; --panel:#221320; --line:#3c2237; --txt:#fdeef6; --dim:#a98199;
-    --acc:#ff8fd0; --acc2:#ffc06a; --radius:18px;
-  }
+  /* Sara — dreamy violet */
   body[data-user="sara"]{
-    --bg:#150f2e; --bg2:#241a4a; --panel:#1c1440; --line:#372768; --txt:#f3edff; --dim:#8f81c0;
-    --acc:#ff7bd0; --acc2:#7de8ff; --radius:20px;
+    --bg:#1b1230; --bg2:#241838; --panel:#221736; --line:#3a2a55; --txt:#eeeaf7; --dim:#a493c4;
+    --acc:#a86fd6; --acc2:#d4b5ff; --radius:20px;
   }
+  /* Sylvie — classic navy */
+  body[data-user="sylvie"]{
+    --bg:#04102b; --bg2:#071a3d; --panel:#0a1c3f; --line:#1c3563; --txt:#edf0f3; --dim:#7e93b8;
+    --acc:#4f8fe8; --acc2:#8fc3ff; --radius:14px;
+  }
+  /* Cedric — rich indigo */
   body[data-user="cedric"]{
-    --bg:#0a1712; --bg2:#12301f; --panel:#0f2318; --line:#1f4230; --txt:#eafff2; --dim:#6f9c84;
-    --acc:#7dff8a; --acc2:#38e0d0; --radius:10px;
+    --bg:#0b0730; --bg2:#140c44; --panel:#120c3c; --line:#2a2060; --txt:#f2f3f6; --dim:#8b86c2;
+    --acc:#6a5ae8; --acc2:#8f9cff; --radius:12px;
+  }
+  /* Sylvain — near-black, coral + teal */
+  body[data-user="sylvain"]{
+    --bg:#0c1012; --bg2:#131a1d; --panel:#11181b; --line:#263135; --txt:#ebf1f4; --dim:#7f969c;
+    --acc:#5fb8c0; --acc2:#e06565; --radius:10px;
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
   html,body{margin:0; height:100%}
@@ -254,10 +262,10 @@ const PRI = [
   {v:2, label:'HIGH', c:'#ff5964'},
 ];
 const USERS = [
-  {id:'sylvain', name:'Sylvain', role:'DAD',    initials:'SY', c1:'#7dd3fc', c2:'#b57bff', panel:'#101728', deep:'#0a0e1a', line:'#1e2a44', meta:'#0a0e1a'},
-  {id:'sylvie',  name:'Sylvie',  role:'MOM',    initials:'SV', c1:'#ff8fd0', c2:'#ffc06a', panel:'#221320', deep:'#190f18', line:'#3c2237', meta:'#190f18'},
-  {id:'sara',    name:'Sara',    role:'DAUGHTER', initials:'SA', c1:'#ff7bd0', c2:'#7de8ff', panel:'#1c1440', deep:'#150f2e', line:'#372768', meta:'#150f2e'},
-  {id:'cedric',  name:'Cedric',  role:'SON',    initials:'CE', c1:'#7dff8a', c2:'#38e0d0', panel:'#0f2318', deep:'#0a1712', line:'#1f4230', meta:'#0a1712'},
+  {id:'sylvain', name:'Sylvain', role:'DAD',      initials:'SY', c1:'#5fb8c0', c2:'#e06565', panel:'#11181b', deep:'#0c1012', line:'#263135', meta:'#0c1012'},
+  {id:'sylvie',  name:'Sylvie',  role:'MOM',      initials:'SV', c1:'#4f8fe8', c2:'#8fc3ff', panel:'#0a1c3f', deep:'#04102b', line:'#1c3563', meta:'#04102b'},
+  {id:'sara',    name:'Sara',    role:'DAUGHTER', initials:'SA', c1:'#a86fd6', c2:'#d4b5ff', panel:'#221736', deep:'#1b1230', line:'#3a2a55', meta:'#1b1230'},
+  {id:'cedric',  name:'Cedric',  role:'SON',      initials:'CE', c1:'#6a5ae8', c2:'#8f9cff', panel:'#120c3c', deep:'#0b0730', line:'#2a2060', meta:'#0b0730'},
 ];
 
 const $ = id => document.getElementById(id);
