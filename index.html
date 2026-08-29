@@ -3,51 +3,69 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0a0e1a">
+<meta name="theme-color" content="#0a0e1a" id="themeColorMeta">
 <title>Tasks</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <style>
   :root{
-    --bg:#0a0e1a; --panel:#101728; --line:#1e2a44; --txt:#e8eefc; --dim:#71809b;
-    --hi:#ff5964; --md:#ffb347; --lo:#3ddad0; --acc:#7dd3fc;
+    --bg:#0a0e1a; --bg2:#131c33; --panel:#101728; --line:#1e2a44; --txt:#e8eefc; --dim:#71809b;
+    --hi:#ff5964; --md:#ffb347; --lo:#3ddad0; --acc:#7dd3fc; --acc2:#b57bff;
+    --radius:14px;
+  }
+  body[data-user="sylvie"]{
+    --bg:#190f18; --bg2:#2a1626; --panel:#221320; --line:#3c2237; --txt:#fdeef6; --dim:#a98199;
+    --acc:#ff8fd0; --acc2:#ffc06a; --radius:18px;
+  }
+  body[data-user="sara"]{
+    --bg:#150f2e; --bg2:#241a4a; --panel:#1c1440; --line:#372768; --txt:#f3edff; --dim:#8f81c0;
+    --acc:#ff7bd0; --acc2:#7de8ff; --radius:20px;
+  }
+  body[data-user="cedric"]{
+    --bg:#0a1712; --bg2:#12301f; --panel:#0f2318; --line:#1f4230; --txt:#eafff2; --dim:#6f9c84;
+    --acc:#7dff8a; --acc2:#38e0d0; --radius:10px;
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
   html,body{margin:0; height:100%}
   body{
-    background:radial-gradient(900px 500px at 50% -10%, #131c33 0%, var(--bg) 55%);
+    background:radial-gradient(900px 500px at 50% -10%, var(--bg2) 0%, var(--bg) 55%);
     color:var(--txt); font-family:'Segoe UI', system-ui, -apple-system, sans-serif;
     display:flex; flex-direction:column; max-width:640px; margin:0 auto;
     padding-top:env(safe-area-inset-top);
     user-select:none;
+    transition:background .3s;
   }
   header{
-    display:flex; align-items:baseline; gap:10px;
+    display:flex; align-items:center; gap:10px;
     padding:calc(14px + env(safe-area-inset-top)) 18px 10px;
   }
   header h1{
-    margin:0; font-size:1.35rem; letter-spacing:.28em; font-weight:800;
-    background:linear-gradient(90deg,#7dd3fc,#b57bff,#ff8fd0);
+    margin:0; font-size:1.3rem; letter-spacing:.24em; font-weight:800;
+    background:linear-gradient(90deg,var(--acc),var(--acc2));
     -webkit-background-clip:text; background-clip:text; color:transparent;
   }
-  header .count{color:var(--dim); font-size:.8rem}
-  header .menu-btn{
-    margin-left:auto; background:none; border:none; color:var(--dim); font-size:1.2rem;
-    cursor:pointer; padding:6px 8px; border-radius:8px;
+  header .count{color:var(--dim); font-size:.78rem; flex:1}
+  .avatar{
+    width:34px; height:34px; border-radius:50%; flex:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    font-size:.7rem; font-weight:800; letter-spacing:.03em;
+    background:linear-gradient(135deg, color-mix(in srgb, var(--acc) 35%, var(--panel)), var(--panel));
+    border:1.5px solid var(--acc); color:var(--acc);
+    box-shadow:0 0 10px color-mix(in srgb, var(--acc) 30%, transparent);
   }
   .tabs{display:flex; gap:8px; padding:0 18px 10px}
   .tab{
-    flex:1; text-align:center; padding:8px 0; border-radius:14px; font-size:.85rem;
+    flex:1; text-align:center; padding:8px 0; border-radius:calc(var(--radius) - 2px); font-size:.85rem;
     color:var(--dim); background:var(--panel); border:1px solid var(--line); cursor:pointer;
   }
-  .tab.on{color:var(--acc); border-color:#2e5c8a; box-shadow:0 0 12px rgba(125,211,252,.15)}
+  .tab.on{color:var(--acc); border-color:color-mix(in srgb, var(--acc) 55%, transparent); box-shadow:0 0 12px color-mix(in srgb, var(--acc) 18%, transparent)}
   #list{flex:1; overflow-y:auto; padding:2px 12px calc(120px + env(safe-area-inset-bottom))}
   .task{
     display:flex; align-items:center; gap:12px; margin:8px 0; padding:12px 14px;
-    background:linear-gradient(160deg, var(--panel), #0c1322);
+    background:linear-gradient(160deg, var(--panel), color-mix(in srgb, var(--bg) 60%, var(--panel)));
     border:1px solid var(--line); border-left:4px solid var(--pri, var(--lo));
-    border-radius:14px; animation:slideIn .22s ease both;
+    border-radius:var(--radius); animation:slideIn .22s ease both;
   }
   @keyframes slideIn{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:none}}
   .task.done{opacity:.45}
@@ -69,42 +87,34 @@
   .task .badge.pri{color:var(--pri); border-color:color-mix(in srgb, var(--pri) 45%, transparent)}
   .task .badge.due{color:var(--acc)}
   .task .badge.over{color:var(--hi); border-color:color-mix(in srgb, var(--hi) 50%, transparent)}
-  .task .del{
-    background:none; border:none; color:var(--dim); font-size:1rem; cursor:pointer;
-    padding:6px; border-radius:8px;
-  }
+  .task .badge.rem{color:var(--acc2); border-color:color-mix(in srgb, var(--acc2) 45%, transparent)}
+  .task .del{background:none; border:none; color:var(--dim); font-size:1rem; cursor:pointer; padding:6px; border-radius:8px}
   .task .del:hover{color:var(--hi)}
   .empty{color:var(--dim); text-align:center; padding:60px 20px; font-size:.9rem; line-height:1.8}
   .empty .big{font-size:2.2rem; display:block; margin-bottom:8px}
-  /* composer */
   .composer{
     position:fixed; bottom:0; left:0; right:0; display:flex; justify-content:center;
     padding:10px 12px calc(12px + env(safe-area-inset-bottom));
-    background:linear-gradient(to top, var(--bg) 60%, transparent);
-    z-index:10;
+    background:linear-gradient(to top, var(--bg) 60%, transparent); z-index:10;
   }
   .composer .box{
     display:flex; align-items:center; gap:8px; width:min(616px,100%);
-    background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:8px 10px;
-    box-shadow:0 8px 30px rgba(0,0,0,.5);
+    background:var(--panel); border:1px solid var(--line); border-radius:calc(var(--radius) + 4px);
+    padding:8px 10px; box-shadow:0 8px 30px rgba(0,0,0,.5);
   }
   .composer input[type=text]{
-    flex:1; background:none; border:none; outline:none; color:var(--txt);
-    font-size:16px; min-width:0;
+    flex:1; background:none; border:none; outline:none; color:var(--txt); font-size:16px; min-width:0;
   }
-  .composer input[type=date]{
-    background:none; border:none; outline:none; color:var(--acc); font-size:.8rem;
-    color-scheme:dark;
-  }
+  .composer input[type=date]{background:none; border:none; outline:none; color:var(--acc); font-size:.8rem; color-scheme:dark}
   .pri-cycle{
-    background:none; border:1px solid var(--line); color:var(--pc, var(--dim));
-    border-radius:12px; padding:6px 10px; font-size:.7rem; cursor:pointer; font-weight:700;
+    background:none; border:1px solid var(--line); border-radius:12px; padding:6px 10px;
+    font-size:.7rem; cursor:pointer; font-weight:700;
   }
   .add-btn{
-    background:linear-gradient(135deg,#2e5c8a,#7dd3fc); border:none; color:#04101f;
-    font-weight:800; font-size:1rem; border-radius:14px; padding:9px 16px; cursor:pointer;
+    background:linear-gradient(135deg, color-mix(in srgb, var(--acc) 55%, var(--panel)), var(--acc));
+    border:none; color:#04101f; font-weight:800; font-size:1rem; border-radius:calc(var(--radius) - 2px);
+    padding:9px 16px; cursor:pointer;
   }
-  /* edit sheet */
   #sheet{
     position:fixed; inset:0; z-index:30; display:none; align-items:flex-end; justify-content:center;
     background:rgba(3,6,12,.7); backdrop-filter:blur(5px);
@@ -118,43 +128,71 @@
   @keyframes up{from{transform:translateY(30px); opacity:0}to{transform:none; opacity:1}}
   .sheet-box h3{margin:0 0 12px; font-size:.8rem; letter-spacing:.2em; color:var(--dim)}
   .sheet-box textarea{
-    width:100%; min-height:70px; background:#0a1220; color:var(--txt);
+    width:100%; min-height:70px; background:color-mix(in srgb, var(--bg) 80%, var(--panel)); color:var(--txt);
     border:1px solid var(--line); border-radius:12px; padding:10px; font-size:16px;
     font-family:inherit; resize:vertical; outline:none;
   }
   .sheet-row{display:flex; gap:8px; margin:12px 0; align-items:center; flex-wrap:wrap}
-  .sheet-row input[type=date]{flex:1; background:#0a1220; color:var(--acc); border:1px solid var(--line); border-radius:10px; padding:8px; color-scheme:dark; font-size:.85rem}
-  .sheet-row select{background:#0a1220; color:var(--txt); border:1px solid var(--line); border-radius:10px; padding:8px; font-size:.85rem}
+  .sheet-row input[type=date]{flex:1; background:color-mix(in srgb, var(--bg) 80%, var(--panel)); color:var(--acc); border:1px solid var(--line); border-radius:10px; padding:8px; color-scheme:dark; font-size:.85rem}
+  .sheet-row input[type=datetime-local]{flex:1.4; background:color-mix(in srgb, var(--bg) 80%, var(--panel)); color:var(--acc2); border:1px solid var(--line); border-radius:10px; padding:8px; color-scheme:dark; font-size:.85rem}
+  .sheet-row select{background:color-mix(in srgb, var(--bg) 80%, var(--panel)); color:var(--txt); border:1px solid var(--line); border-radius:10px; padding:8px; font-size:.85rem}
   .sheet-actions{display:flex; gap:10px}
-  .sheet-actions button{flex:1; padding:12px; border-radius:12px; border:1px solid var(--line); background:#0d1526; color:var(--txt); font-size:.9rem; cursor:pointer}
-  .sheet-actions .save{background:linear-gradient(135deg,#2e5c8a,#7dd3fc); color:#04101f; font-weight:700; border:none}
-  .sheet-actions .danger{color:var(--hi); border-color:color-mix(in srgb, var(--hi) 40%, transparent)}
-  /* menu */
-  #menu{
-    position:fixed; inset:0; z-index:30; display:none; justify-content:flex-end; padding:14px;
-    background:rgba(3,6,12,.5);
+  .sheet-actions button{
+    flex:1; padding:12px; border-radius:12px; border:1px solid var(--line);
+    background:color-mix(in srgb, var(--bg) 60%, var(--panel)); color:var(--txt); font-size:.9rem; cursor:pointer;
   }
+  .sheet-actions .save{background:linear-gradient(135deg, color-mix(in srgb, var(--acc) 55%, var(--panel)), var(--acc)); color:#04101f; font-weight:700; border:none}
+  .sheet-actions .danger{color:var(--hi); border-color:color-mix(in srgb, var(--hi) 40%, transparent)}
+  .sheet-actions .cal{color:var(--acc2); border-color:color-mix(in srgb, var(--acc2) 40%, transparent)}
+  #menu{position:fixed; inset:0; z-index:30; display:none; justify-content:flex-end; padding:14px; background:rgba(3,6,12,.5)}
   #menu.show{display:flex}
-  .menu-box{background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden; min-width:200px}
+  .menu-box{background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden; min-width:220px}
   .menu-box button{
     display:block; width:100%; text-align:left; background:none; border:none; color:var(--txt);
     padding:13px 16px; font-size:.88rem; cursor:pointer; border-bottom:1px solid var(--line);
   }
   .menu-box button:last-child{border-bottom:none}
-  .menu-box button:hover{background:#16203a}
   .toast{
     position:fixed; bottom:calc(96px + env(safe-area-inset-bottom)); left:50%; transform:translateX(-50%);
-    background:#16203a; border:1px solid var(--line); color:var(--txt); border-radius:20px;
+    background:var(--panel); border:1px solid var(--line); color:var(--txt); border-radius:20px;
     padding:10px 18px; font-size:.82rem; z-index:40; opacity:0; transition:opacity .2s; pointer-events:none;
   }
   .toast.show{opacity:1}
+  /* profile picker */
+  #picker{
+    position:fixed; inset:0; z-index:50; display:none; flex-direction:column; align-items:center;
+    justify-content:center; gap:18px; padding:24px; text-align:center;
+    background:radial-gradient(700px 500px at 50% 0%, var(--bg2), var(--bg));
+  }
+  #picker.show{display:flex}
+  #picker h2{margin:0; font-size:1.1rem; letter-spacing:.25em; font-weight:800;
+    background:linear-gradient(90deg,var(--acc),var(--acc2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+  #picker p{margin:0; color:var(--dim); font-size:.8rem}
+  .pcards{display:grid; grid-template-columns:repeat(2, minmax(130px, 170px)); gap:14px; margin-top:6px}
+  .pcard{
+    padding:22px 10px 16px; border-radius:18px; cursor:pointer;
+    background:linear-gradient(160deg, var(--pc-panel), var(--pc-deep));
+    border:1.5px solid var(--pc-line);
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    transition:transform .12s, box-shadow .12s;
+  }
+  .pcard:hover{transform:translateY(-3px) scale(1.03); box-shadow:0 10px 26px rgba(0,0,0,.45)}
+  .pcard .pav{
+    width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-size:1rem; color:#fff;
+    background:linear-gradient(135deg, var(--pc-acc), var(--pc-acc2));
+    box-shadow:0 0 18px color-mix(in srgb, var(--pc-acc) 40%, transparent);
+  }
+  .pcard .pname{font-size:.95rem; font-weight:700}
+  .pcard .prole{font-size:.68rem; color:var(--dim); letter-spacing:.08em}
 </style>
 </head>
 <body>
 <header>
   <h1>TASKS</h1>
   <span class="count" id="count"></span>
-  <button class="menu-btn" id="menuBtn" title="Menu">⋮</button>
+  <div class="avatar" id="avatar" title="Switch user">–</div>
+  <button class="menu-btn" id="menuBtn" title="Menu" style="background:none;border:none;color:var(--dim);font-size:1.2rem;cursor:pointer;padding:6px 8px">⋮</button>
 </header>
 <div class="tabs" id="tabs">
   <div class="tab on" data-f="all">All</div>
@@ -175,16 +213,18 @@
     <h3>EDIT TASK</h3>
     <textarea id="editText" maxlength="200"></textarea>
     <div class="sheet-row">
-      <input type="date" id="editDue">
+      <input type="date" id="editDue" title="Due date">
+      <input type="datetime-local" id="editRemind" title="Reminder (in-app)">
       <select id="editPri">
-        <option value="0">Low priority</option>
-        <option value="1">Medium priority</option>
-        <option value="2">High priority</option>
+        <option value="0">Low</option>
+        <option value="1">Medium</option>
+        <option value="2">High</option>
       </select>
     </div>
     <div class="sheet-actions">
       <button class="danger" id="delBtn">Delete</button>
       <button id="cancelBtn">Cancel</button>
+      <button class="cal" id="calBtn" title="Create a calendar event with an alert">📅 Calendar</button>
       <button class="save" id="saveBtn">Save</button>
     </div>
   </div>
@@ -194,10 +234,18 @@
     <button id="exportBtn">⬇ Export backup</button>
     <button id="importBtn">⬆ Import backup</button>
     <button id="clearDoneBtn">✕ Clear completed</button>
+    <button id="switchBtn">↔ Switch user</button>
   </div>
 </div>
 <input type="file" id="importFile" accept="application/json" style="display:none">
 <div class="toast" id="toast"></div>
+
+<div id="picker">
+  <h2>WHO'S TASKS?</h2>
+  <p>choose your profile — it stays on this phone</p>
+  <div class="pcards" id="pcards"></div>
+  <p style="margin-top:8px">after choosing, use browser menu → <b style="color:var(--txt)">Add to Home screen</b></p>
+</div>
 
 <script>
 const PRI = [
@@ -205,39 +253,83 @@ const PRI = [
   {v:1, label:'MED',  c:'#ffb347'},
   {v:2, label:'HIGH', c:'#ff5964'},
 ];
-const STORE = 'tasks.v1';
+const USERS = [
+  {id:'sylvain', name:'Sylvain', role:'DAD',    initials:'SY', c1:'#7dd3fc', c2:'#b57bff', panel:'#101728', deep:'#0a0e1a', line:'#1e2a44', meta:'#0a0e1a'},
+  {id:'sylvie',  name:'Sylvie',  role:'MOM',    initials:'SV', c1:'#ff8fd0', c2:'#ffc06a', panel:'#221320', deep:'#190f18', line:'#3c2237', meta:'#190f18'},
+  {id:'sara',    name:'Sara',    role:'DAUGHTER', initials:'SA', c1:'#ff7bd0', c2:'#7de8ff', panel:'#1c1440', deep:'#150f2e', line:'#372768', meta:'#150f2e'},
+  {id:'cedric',  name:'Cedric',  role:'SON',    initials:'CE', c1:'#7dff8a', c2:'#38e0d0', panel:'#0f2318', deep:'#0a1712', line:'#1f4230', meta:'#0a1712'},
+];
+
+const $ = id => document.getElementById(id);
+const list = $('list');
+let user = null;          // current user object
 let tasks = [];
 let filter = 'all';
 let editId = null;
 let newPri = 1;
 
-const $ = id => document.getElementById(id);
-const list = $('list');
-
+const storeKey = () => 'tasks.v1.' + (user ? user.id : 'default');
 function load(){
-  try{ tasks = JSON.parse(localStorage.getItem(STORE)) || []; }
+  try{ tasks = JSON.parse(localStorage.getItem(storeKey())) || []; }
   catch(e){ tasks = []; }
   if (!Array.isArray(tasks)) tasks = [];
 }
 function save(){
-  try{ localStorage.setItem(STORE, JSON.stringify(tasks)); }
+  try{ localStorage.setItem(storeKey(), JSON.stringify(tasks)); }
   catch(e){ toast('Could not save (storage full?)'); }
 }
 function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
+/* ---------- profiles ---------- */
+function applyUser(u){
+  user = u;
+  try{ localStorage.setItem('tasks.user', u.id); }catch(e){}
+  document.body.setAttribute('data-user', u.id);
+  $('avatar').textContent = u.initials;
+  $('avatar').title = u.name + ' — tap to switch';
+  const meta = $('themeColorMeta');
+  if (meta) meta.setAttribute('content', u.meta || '#0a0e1a');
+  load(); render();
+  $('picker').classList.remove('show');
+}
+function showPicker(){
+  const cards = $('pcards');
+  cards.innerHTML = USERS.map(u => `
+    <div class="pcard" data-u="${u.id}" style="--pc-acc:${u.c1};--pc-acc2:${u.c2};--pc-panel:${u.panel};--pc-deep:${u.deep};--pc-line:${u.line}">
+      <div class="pav">${u.initials}</div>
+      <div><div class="pname">${u.name}</div><div class="prole">${u.role}</div></div>
+    </div>`).join('');
+  $('picker').classList.add('show');
+}
+$('pcards').addEventListener('click', e=>{
+  const card = e.target.closest('.pcard'); if (!card) return;
+  const u = USERS.find(x => x.id === card.dataset.u);
+  if (u) applyUser(u);
+});
+$('avatar').addEventListener('click', showPicker);
+
+/* ---------- rendering ---------- */
 function dueInfo(due){
   if (!due) return null;
   const today = new Date(); today.setHours(0,0,0,0);
   const d = new Date(due + 'T00:00:00');
   const days = Math.round((d - today) / 86400000);
-  if (days < -0.5) return {txt: 'Overdue ' + Math.abs(days) + 'd', cls:'over'};
+  if (days < 0) return {txt: 'Overdue ' + Math.abs(days) + 'd', cls:'over'};
   if (days === 0) return {txt:'Due today', cls:'due'};
   if (days === 1) return {txt:'Tomorrow', cls:'due'};
   const opts = {day:'numeric', month:'short'};
   if (d.getFullYear() !== today.getFullYear()) opts.year = 'numeric';
   return {txt: d.toLocaleDateString('en-GB', opts), cls:'due'};
 }
-
+function remindInfo(t){
+  if (!t.remindAt || t.done) return null;
+  const when = new Date(t.remindAt);
+  if (t.reminded || isNaN(when)) return {txt:'🔔 ' + when.toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}), cls:'rem'};
+  const mins = Math.round((when - Date.now())/60000);
+  if (mins < 0) return {txt:'🔔 now', cls:'rem'};
+  if (mins < 60) return {txt:'🔔 in ' + mins + ' min', cls:'rem'};
+  return {txt:'🔔 ' + when.toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}), cls:'rem'};
+}
 function render(){
   const visible = tasks.filter(t => filter==='all' ? true : filter==='done' ? t.done : !t.done);
   const sorted = visible.slice().sort((a,b)=>{
@@ -249,7 +341,8 @@ function render(){
     return a.created - b.created;
   });
   const active = tasks.filter(t=>!t.done).length;
-  $('count').textContent = active ? active + ' to do' : (tasks.length ? 'all clear ✓' : '');
+  $('count').textContent = user ? (user.name + ' · ') : '';
+  $('count').textContent += active ? active + ' to do' : (tasks.length ? 'all clear ✓' : '');
   if (!sorted.length){
     const msg = filter==='done' ? 'Nothing completed yet' : filter==='active' ? 'No active tasks — enjoy!' : 'Your list is empty.\nAdd your first task below.';
     list.innerHTML = `<div class="empty"><span class="big">✓</span>${esc(msg).replace('\n','<br>')}</div>`;
@@ -258,13 +351,15 @@ function render(){
   list.innerHTML = sorted.map(t=>{
     const p = PRI[t.pri] || PRI[0];
     const d = t.done ? null : dueInfo(t.due);
+    const r = remindInfo(t);
     return `<div class="task ${t.done?'done':''}" data-id="${t.id}" style="--pri:${p.c}">
       <button class="check ${t.done?'on':''}" data-act="toggle">${t.done?'✓':''}</button>
       <div class="body" data-act="edit">
         <div class="text">${esc(t.text)}</div>
-        ${(t.done || t.pri>0 || d) ? `<div class="meta">
+        ${(t.done || t.pri>0 || d || r) ? `<div class="meta">
           ${t.pri>0 ? `<span class="badge pri">${p.label}</span>` : ''}
           ${d ? `<span class="badge ${d.cls}">${d.txt}</span>` : ''}
+          ${r ? `<span class="badge ${r.cls}">${r.txt}</span>` : ''}
           ${t.done ? `<span class="badge">done ${new Date(t.completedAt).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</span>` : ''}
         </div>` : ''}
       </div>
@@ -273,10 +368,11 @@ function render(){
   }).join('');
 }
 
-function addTask(text, due, pri){
+/* ---------- task ops ---------- */
+function addTask(text, due, pri, remindAt){
   text = (text||'').trim();
   if (!text) return false;
-  tasks.push({id: Date.now() + Math.random().toString(36).slice(2,6), text, due: due || null, pri: pri|0, done:false, created: Date.now(), completedAt:null});
+  tasks.push({id: Date.now() + Math.random().toString(36).slice(2,6), text, due: due || null, remindAt: remindAt || null, reminded:false, pri: pri|0, done:false, created: Date.now(), completedAt:null});
   save(); render();
   return true;
 }
@@ -292,6 +388,7 @@ function deleteTask(id){
 }
 function updateTask(id, patch){
   const t = tasks.find(x=>x.id===id); if (!t) return;
+  if (patch.remindAt !== undefined && patch.remindAt !== t.remindAt) patch.reminded = false;
   Object.assign(t, patch);
   save(); render();
 }
@@ -306,10 +403,92 @@ function toast(msg){
   const el = $('toast');
   el.textContent = msg; el.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=> el.classList.remove('show'), 2200);
+  toastTimer = setTimeout(()=> el.classList.remove('show'), 2400);
 }
 
-/* ---- events ---- */
+/* ---------- reminders (in-app) ---------- */
+function dueForNotify(now){
+  return tasks.filter(t => !t.done && t.remindAt && !t.reminded && new Date(t.remindAt).getTime() <= now);
+}
+function checkReminders(){
+  const due = dueForNotify(Date.now());
+  if (!due.length) return;
+  due.forEach(t => { t.reminded = true; });
+  save(); render();
+  due.forEach(t => notify(t));
+}
+function notify(t){
+  blip();
+  toast('🔔 ' + t.text);
+  try{
+    if (typeof Notification !== 'undefined' && Notification.permission === 'granted'){
+      new Notification('Tasks — ' + (user ? user.name : 'Reminder'), {body: t.text, tag: t.id});
+    }
+  }catch(e){}
+}
+function requestNotifyPermission(){
+  try{
+    if (typeof Notification !== 'undefined' && Notification.permission === 'default'){
+      Notification.requestPermission();
+    }
+  }catch(e){}
+}
+let AC = null;
+function blip(){
+  try{
+    AC = AC || new (window.AudioContext || window.webkitAudioContext)();
+    const t = AC.currentTime;
+    const o = AC.createOscillator(), v = AC.createGain();
+    o.type = 'sine'; o.frequency.value = 880;
+    v.gain.setValueAtTime(0.0001, t);
+    v.gain.exponentialRampToValueAtTime(0.07, t + 0.015);
+    v.gain.exponentialRampToValueAtTime(0.0001, t + 0.4);
+    o.connect(v); v.connect(AC.destination);
+    o.start(t); o.stop(t + 0.45);
+  }catch(e){}
+}
+
+/* ---------- calendar handoff (.ics) ---------- */
+function icsStamp(dt){
+  return dt.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
+}
+function icsAllDay(dateStr){
+  return dateStr.replace(/-/g,'');
+}
+function buildICS(t){
+  const lines = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Tasks//Family//EN','BEGIN:VEVENT'];
+  lines.push('UID:' + t.id + '@tasks-family');
+  lines.push('DTSTAMP:' + icsStamp(new Date()));
+  if (t.remindAt){
+    const start = new Date(t.remindAt);
+    lines.push('DTSTART:' + icsStamp(start));
+    lines.push('DTEND:' + icsStamp(new Date(start.getTime() + 30*60000)));
+  } else if (t.due){
+    lines.push('DTSTART;VALUE=DATE:' + icsAllDay(t.due));
+    lines.push('DTEND;VALUE=DATE:' + icsAllDay(t.due));
+  } else {
+    const start = new Date(Date.now() + 3600000);
+    lines.push('DTSTART:' + icsStamp(start));
+    lines.push('DTEND:' + icsStamp(new Date(start.getTime() + 30*60000)));
+  }
+  const summary = ('Task: ' + t.text).replace(/([,;\\])/g, '\\$1').slice(0, 120);
+  lines.push('SUMMARY:' + summary);
+  lines.push('DESCRIPTION:' + ('From ' + (user ? user.name : 'my') + ' Tasks list').replace(/([,;\\])/g, '\\$1'));
+  lines.push('BEGIN:VALARM','TRIGGER:-PT10M','ACTION:DISPLAY','DESCRIPTION:Task reminder','END:VALARM');
+  lines.push('END:VEVENT','END:VCALENDAR');
+  return lines.join('\r\n');
+}
+function addToCalendar(t){
+  const blob = new Blob([buildICS(t)], {type:'text/calendar'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'task-' + t.text.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40) + '.ics';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('📅 Calendar event created — open it to add the alert');
+}
+
+/* ---------- events ---------- */
 $('addBtn').addEventListener('click', ()=>{
   if (addTask($('newText').value, $('newDue').value, newPri)){
     $('newText').value=''; $('newDue').value='';
@@ -320,7 +499,6 @@ $('priBtn').addEventListener('click', ()=>{
   newPri = (newPri + 1) % 3;
   const p = PRI[newPri];
   $('priBtn').textContent = p.label;
-  $('priBtn').style.setProperty('--pc', p.c);
   $('priBtn').style.color = p.c;
 });
 list.addEventListener('click', e=>{
@@ -343,21 +521,30 @@ function openSheet(id){
   editId = id;
   $('editText').value = t.text;
   $('editDue').value = t.due || '';
+  $('editRemind').value = t.remindAt ? t.remindAt.slice(0,16) : '';
   $('editPri').value = String(t.pri);
   $('sheet').classList.add('show');
 }
 $('saveBtn').addEventListener('click', ()=>{
   const text = $('editText').value.trim();
   if (!text) return toast('Task text cannot be empty');
-  updateTask(editId, {text, due: $('editDue').value || null, pri: +$('editPri').value});
+  const remindRaw = $('editRemind').value;
+  const remindAt = remindRaw ? new Date(remindRaw).toISOString() : null;
+  updateTask(editId, {text, due: $('editDue').value || null, remindAt, pri: +$('editPri').value});
+  if (remindAt) requestNotifyPermission();
   $('sheet').classList.remove('show');
+});
+$('calBtn').addEventListener('click', ()=>{
+  const t = tasks.find(x=>x.id===editId);
+  if (t) addToCalendar(t);
 });
 $('delBtn').addEventListener('click', ()=>{ deleteTask(editId); $('sheet').classList.remove('show'); });
 $('cancelBtn').addEventListener('click', ()=> $('sheet').classList.remove('show'));
 $('sheet').addEventListener('click', e=>{ if (e.target.id==='sheet') $('sheet').classList.remove('show'); });
 $('menuBtn').addEventListener('click', ()=> $('menu').classList.add('show'));
+$('switchBtn').addEventListener('click', ()=>{ $('menu').classList.remove('show'); showPicker(); });
 $('menu').addEventListener('click', e=>{
-  if (e.target.id==='menu') { $('menu').classList.remove('show'); return; }
+  if (e.target.id==='menu'){ $('menu').classList.remove('show'); return; }
   if (e.target.id==='clearDoneBtn'){ clearDone(); $('menu').classList.remove('show'); }
   if (e.target.id==='exportBtn'){ exportData(); $('menu').classList.remove('show'); }
   if (e.target.id==='importBtn'){ $('importFile').click(); $('menu').classList.remove('show'); }
@@ -366,7 +553,7 @@ function exportData(){
   const blob = new Blob([JSON.stringify(tasks, null, 2)], {type:'application/json'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'tasks-backup-' + new Date().toISOString().slice(0,10) + '.json';
+  a.download = 'tasks-backup-' + (user ? user.id : 'me') + '-' + new Date().toISOString().slice(0,10) + '.json';
   a.click();
   URL.revokeObjectURL(a.href);
   toast('Backup downloaded');
@@ -379,7 +566,7 @@ $('importFile').addEventListener('change', e=>{
       const data = JSON.parse(reader.result);
       if (!Array.isArray(data)) throw new Error('bad');
       const clean = data.filter(x=> x && typeof x.text === 'string')
-        .map(x=>({id: x.id || (Date.now()+Math.random().toString(36).slice(2,6)), text: String(x.text).slice(0,200), due: x.due||null, pri: Math.min(2,Math.max(0,+x.pri||0)), done: !!x.done, created: +x.created||Date.now(), completedAt: +x.completedAt||null}));
+        .map(x=>({id: x.id || (Date.now()+Math.random().toString(36).slice(2,6)), text: String(x.text).slice(0,200), due: x.due||null, remindAt: x.remindAt||null, reminded: !!x.reminded, pri: Math.min(2,Math.max(0,+x.pri||0)), done: !!x.done, created: +x.created||Date.now(), completedAt: +x.completedAt||null}));
       tasks = tasks.concat(clean);
       save(); render(); toast('Imported ' + clean.length + ' task' + (clean.length!==1?'s':''));
     } catch(err){ toast('Import failed — not a valid backup'); }
@@ -391,10 +578,21 @@ document.addEventListener('keydown', e=>{
   if (e.key==='Escape'){ $('sheet').classList.remove('show'); $('menu').classList.remove('show'); }
 });
 
-/* init */
+/* ---------- init ---------- */
 const p0 = PRI[newPri];
 $('priBtn').textContent = p0.label; $('priBtn').style.color = p0.c;
-load(); render();
+
+let savedId = null;
+try{ savedId = localStorage.getItem('tasks.user'); }catch(e){}
+if (!savedId && typeof location !== 'undefined' && location.search){
+  const q = new URLSearchParams(location.search).get('user');
+  if (q && USERS.some(u=>u.id===q)) savedId = q;
+}
+const initial = USERS.find(u=>u.id===savedId);
+if (initial){ applyUser(initial); }
+else { showPicker(); tasks = []; render(); }
+
+setInterval(()=>{ if (user) checkReminders(); }, 30000);
 if (typeof navigator !== 'undefined' && navigator.serviceWorker) navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body>
