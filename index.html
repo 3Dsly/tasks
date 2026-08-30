@@ -462,12 +462,22 @@ let newPri = 1;
 
 const storeKey = () => 'tasks.v1.' + (user ? user.id : 'default');
 function load(){
-  try{ tasks = JSON.parse(localStorage.getItem(storeKey())) || []; }
-  catch(e){ tasks = []; }
-  if (!Array.isArray(tasks)) tasks = [];
+  try{
+    tasks = JSON.parse(localStorage.getItem(storeKey()));
+  }catch(e){ tasks = null; }
+  if (!Array.isArray(tasks)){
+    // primary copy missing/corrupt — try the rolling backup before giving up
+    try{ tasks = JSON.parse(localStorage.getItem(storeKey() + '.bak')); }catch(e2){ tasks = null; }
+    if (!Array.isArray(tasks)) tasks = [];
+    else save();
+  }
 }
 function save(){
-  try{ localStorage.setItem(storeKey(), JSON.stringify(tasks)); }
+  try{
+    const prev = localStorage.getItem(storeKey());
+    if (prev) localStorage.setItem(storeKey() + '.bak', prev);
+    localStorage.setItem(storeKey(), JSON.stringify(tasks));
+  }
   catch(e){ toast('Could not save (storage full?)'); }
 }
 function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
