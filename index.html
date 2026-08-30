@@ -1418,7 +1418,7 @@ function render(){
     const r = remindInfo(t);
     const priBadgeText = isSara ? (p.label + (p.v===2?' ✦':p.v===1?' ★':' ✧')) : isSylvie ? ('📶 ' + p.label) : p.label;
     const catArtHtml = isSara ? `<div class="task-cat-art">${CAT_SCENES[idx % CAT_SCENES.length]}</div>` : isSylvie ? `<div class="task-sylvie-art">${SYLVIE_SCENES[idx % SYLVIE_SCENES.length]}</div>` : '';
-    const dueTxt = (isSara || isSylvie) ? ('📅 ' + d.txt) : d.txt;
+    const dueTxt = d ? ((isSara || isSylvie) ? ('📅 ' + d.txt) : d.txt) : '';
     
     return `<div class="task ${t.done?'done':''}" data-id="${t.id}" style="--pri:${p.c}">
       <button class="check ${t.done?'on':''}" data-act="toggle">${t.done?'✓':''}</button>
@@ -1428,7 +1428,7 @@ function render(){
           ${t.pri>0 ? `<span class="badge pri">${priBadgeText}</span>` : ''}
           ${d ? `<span class="badge ${d.cls}">${dueTxt}</span>` : ''}
           ${r ? `<span class="badge ${r.cls}">${r.txt}</span>` : ''}
-          ${t.done ? `<span class="badge">done ${new Date(t.completedAt).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</span>` : ''}
+          ${t.done ? `<span class="badge">done ${t.completedAt ? new Date(t.completedAt).toLocaleDateString('en-GB',{day:'numeric',month:'short'}) : ''}</span>` : ''}
         </div>` : ''}
       </div>
       ${catArtHtml}
