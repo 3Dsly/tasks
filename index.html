@@ -179,6 +179,10 @@
   body[data-user="sara"] .composer input[type=text]::placeholder{
     color:#aa94cc; opacity:0.85;
   }
+  body[data-user="sara"] .composer input[type=date]{
+    background:rgba(28, 12, 50, 0.75); border:1px solid rgba(216, 174, 255, 0.35); border-radius:10px;
+    color:#d8aeff; font-size:12px; color-scheme:dark; padding:5px 8px; flex:none; cursor:pointer;
+  }
   body[data-user="sara"] .pri-cycle{
     border-radius:12px; border:1px solid rgba(216,174,255,.35); color:#d8aeff;
     background:rgba(28,12,50,.75); font-family:system-ui, -apple-system, sans-serif; font-weight:700;
@@ -366,6 +370,10 @@
   }
   body[data-user="sylvie"] .composer input[type=text]::placeholder{
     color:#769cc4; opacity:0.85;
+  }
+  body[data-user="sylvie"] .composer input[type=date]{
+    background:rgba(4, 12, 32, 0.75); border:1px solid rgba(0, 162, 255, 0.35); border-radius:8px;
+    color:#00a2ff; font-size:12px; color-scheme:dark; padding:5px 8px; flex:none; cursor:pointer;
   }
   body[data-user="sylvie"] .pri-cycle{
     border-radius:8px; border:1px solid rgba(0, 162, 255, 0.4); color:#00a2ff;
@@ -1000,15 +1008,8 @@
       <circle cx="44" cy="48" r="0.9" fill="#d8aeff" opacity=".8"/>
     </svg>
     <div class="box">
-      <div class="composer-left-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10"/>
-          <line x1="12" y1="8" x2="12" y2="16"/>
-          <line x1="8" y1="12" x2="16" y2="12"/>
-        </svg>
-      </div>
       <input type="text" id="newText" placeholder="Add a task…" autocomplete="off" maxlength="200">
-      <input type="date" id="newDue" title="Due date" style="display:none">
+      <input type="date" id="newDue" title="Due date">
       <button class="pri-cycle" id="priBtn" title="Priority">MED ⌵</button>
       <button class="add-btn" id="addBtn">+</button>
     </div>
