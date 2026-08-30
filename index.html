@@ -58,9 +58,64 @@
   body[data-user="sylvie"] .empty .big{font-weight:100; font-size:2.6rem; color:var(--acc)}
   /* Cedric — rich indigo */
   body[data-user="cedric"]{
-    --bg:#0b0730; --bg2:#140c44; --panel:#120c3c; --line:#2a2060; --txt:#f2f3f6; --dim:#8b86c2;
-    --acc:#6a5ae8; --acc2:#8f9cff; --radius:12px;
+    --bg:#020308; --bg2:#060a18; --panel:#050912; --line:#1c2f4a; --txt:#eafcff; --dim:#6f88a6;
+    --acc:#00e5ff; --acc2:#9d6bff; --radius:2px;
   }
+  /* Cedric — sci-fi gaming HUD (from style prompt) */
+  body[data-user="cedric"]{
+    background:
+      radial-gradient(600px 300px at 85% -5%, rgba(0,229,255,.07), transparent 60%),
+      radial-gradient(500px 260px at 8% 108%, rgba(157,107,255,.06), transparent 60%),
+      linear-gradient(rgba(28,47,74,.16) 1px, transparent 1px) 0 0/100% 34px,
+      linear-gradient(90deg, rgba(28,47,74,.16) 1px, transparent 1px) 0 0/34px 100%,
+      #020308;
+  }
+  body[data-user="cedric"] header{position:relative}
+  body[data-user="cedric"] header h1{
+    font-style:italic; font-weight:800; letter-spacing:.34em; font-size:1.18rem;
+    text-shadow:0 0 18px rgba(0,229,255,.45);
+  }
+  body[data-user="cedric"] .ornament-hud{display:block}
+  body[data-user="cedric"] .task{
+    clip-path:polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+    border-left:3px solid var(--pri, #00e5ff);
+    background:
+      repeating-linear-gradient(0deg, rgba(0,229,255,.025) 0 1px, transparent 1px 3px),
+      rgba(5,9,18,.92);
+    box-shadow:inset 0 0 24px rgba(0,229,255,.04);
+    padding:13px 15px;
+  }
+  body[data-user="cedric"] .task.done{box-shadow:none}
+  body[data-user="cedric"] .task:hover{border-color:var(--acc)}
+  body[data-user="cedric"] .tab{
+    clip-path:polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+    text-transform:uppercase; letter-spacing:.1em; font-size:.72rem;
+    border-color:#1c2f4a;
+  }
+  body[data-user="cedric"] .tab.on{
+    color:var(--acc); border-color:var(--acc);
+    box-shadow:0 0 14px rgba(0,229,255,.35), inset 0 0 12px rgba(0,229,255,.1);
+  }
+  body[data-user="cedric"] .badge{
+    text-transform:uppercase; letter-spacing:.09em; font-size:.56rem;
+    border-color:rgba(0,229,255,.25); color:#8fb8cf;
+  }
+  body[data-user="cedric"] .badge.pri{border-color:var(--pri); text-shadow:0 0 8px var(--pri)}
+  body[data-user="cedric"] .composer .box{
+    clip-path:polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+    background:rgba(4,8,16,.92); border-color:rgba(0,229,255,.3);
+    box-shadow:0 0 20px rgba(0,229,255,.12);
+  }
+  body[data-user="cedric"] .add-btn{
+    clip-path:polygon(28% 0, 72% 0, 100% 50%, 72% 100%, 28% 100%, 0 50%);
+    border-radius:0; width:46px; height:40px; padding:0 12px; flex:none;
+    background:linear-gradient(160deg,#00e5ff,#4d7bff 55%, #9d6bff);
+    color:#020308; font-weight:800;
+    box-shadow:none;
+  }
+  body[data-user="cedric"] .check{border-color:var(--pri, #00e5ff)}
+  body[data-user="cedric"] .check.on{box-shadow:0 0 12px var(--pri, #00e5ff)}
+  body[data-user="cedric"] .avatar{border-style:double; border-width:3px; box-shadow:0 0 12px rgba(0,229,255,.4)}
   /* Sylvain — near-black, coral + teal */
   body[data-user="sylvain"]{
     --bg:#0c1012; --bg2:#131a1d; --panel:#11181b; --line:#263135; --txt:#ebf1f4; --dim:#7f969c;
@@ -95,6 +150,7 @@
     box-shadow:0 0 10px color-mix(in srgb, var(--acc) 30%, transparent);
   }
   .ornament{display:none; position:absolute; right:66px; top:10px; width:42px; height:42px; pointer-events:none}
+  .ornament-hud{display:none; position:absolute; right:64px; top:4px; width:52px; height:52px; pointer-events:none}
   .tabs{display:flex; gap:8px; padding:0 18px 10px}
   .tab{
     flex:1; text-align:center; padding:8px 0; border-radius:calc(var(--radius) - 2px); font-size:.85rem;
@@ -236,6 +292,16 @@
     <circle cx="32" cy="32" r="4" stroke="var(--acc2)" stroke-width="1.2"/>
     <circle cx="55" cy="20" r="1.8" fill="var(--acc2)"/>
   </svg>
+  <svg class="ornament-hud" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+    <circle cx="32" cy="32" r="27" stroke="#00e5ff" stroke-opacity=".7" stroke-width="1.2"/>
+    <circle cx="32" cy="32" r="27" stroke="#00e5ff" stroke-opacity=".9" stroke-width="2.5" stroke-dasharray="2 26" stroke-linecap="round"/>
+    <ellipse cx="32" cy="32" rx="21" ry="8" stroke="#9d6bff" stroke-opacity=".8" stroke-width="1" transform="rotate(-24 32 32)"/>
+    <ellipse cx="32" cy="32" rx="21" ry="8" stroke="#9d6bff" stroke-opacity=".5" stroke-width="1" transform="rotate(38 32 32)"/>
+    <path d="M32 20 L42 26 L42 38 L32 44 L22 38 L22 26 Z" stroke="#00e5ff" stroke-width="1.3"/>
+    <circle cx="32" cy="32" r="4.5" fill="#00e5ff" fill-opacity=".85"/>
+    <circle cx="49" cy="13" r="2" fill="#ff4fd8"/>
+    <path d="M6 32 h7 M51 32 h7" stroke="#00e5ff" stroke-opacity=".6" stroke-width="1"/>
+  </svg>
   <h1>TASKS</h1>
   <span class="count" id="count"></span>
   <div class="avatar" id="avatar" title="Switch user">–</div>
@@ -304,7 +370,7 @@ const USERS = [
   {id:'sylvain', name:'Sylvain', role:'DAD',      initials:'SY', c1:'#5fb8c0', c2:'#e06565', panel:'#11181b', deep:'#0c1012', line:'#263135', meta:'#0c1012'},
   {id:'sylvie',  name:'Sylvie',  role:'MOM',      initials:'SV', c1:'#3d8bff', c2:'#a8d4ff', panel:'#050a14', deep:'#020409', line:'#1b2a47', meta:'#020409'},
   {id:'sara',    name:'Sara',    role:'DAUGHTER', initials:'SA', c1:'#a86fd6', c2:'#d4b5ff', panel:'#221736', deep:'#1b1230', line:'#3a2a55', meta:'#1b1230'},
-  {id:'cedric',  name:'Cedric',  role:'SON',      initials:'CE', c1:'#6a5ae8', c2:'#8f9cff', panel:'#120c3c', deep:'#0b0730', line:'#2a2060', meta:'#0b0730'},
+  {id:'cedric',  name:'Cedric',  role:'SON',      initials:'CE', c1:'#00e5ff', c2:'#9d6bff', panel:'#050912', deep:'#020308', line:'#1c2f4a', meta:'#020308'},
 ];
 
 const $ = id => document.getElementById(id);
