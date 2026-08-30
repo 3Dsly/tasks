@@ -170,9 +170,70 @@
   body[data-user="cedric"] .avatar{border-style:double; border-width:3px; box-shadow:0 0 12px rgba(0,229,255,.4)}
   /* Sylvain — near-black, coral + teal */
   body[data-user="sylvain"]{
-    --bg:#0c1012; --bg2:#131a1d; --panel:#11181b; --line:#263135; --txt:#ebf1f4; --dim:#7f969c;
-    --acc:#5fb8c0; --acc2:#e06565; --radius:10px;
+    --bg:#010204; --bg2:#04070d; --panel:#040709; --line:#16324a; --txt:#f0f6fa; --dim:#6b7f92;
+    --acc:#00d8ff; --acc2:#c96bff; --radius:2px;
   }
+  /* Sylvain — clean cyber-HUD / spacecraft console (from style prompt) */
+  body[data-user="sylvain"]{
+    background:
+      radial-gradient(700px 320px at 50% -12%, rgba(0,216,255,.055), transparent 60%),
+      linear-gradient(rgba(22,50,74,.09) 1px, transparent 1px) 0 0/100% 28px,
+      linear-gradient(90deg, rgba(22,50,74,.09) 1px, transparent 1px) 0 0/28px 100%,
+      #010204;
+  }
+  body[data-user="sylvain"] header{position:relative}
+  body[data-user="sylvain"] header h1{
+    font-weight:700; letter-spacing:.4em; font-size:1.1rem;
+    text-shadow:0 0 14px rgba(0,216,255,.3);
+  }
+  body[data-user="sylvain"] .ornament-sys{display:block}
+  body[data-user="sylvain"] .task{
+    position:relative;
+    clip-path:polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+    border-left:2px solid var(--pri, #00d8ff);
+    background:rgba(3,6,10,.92);
+    box-shadow:inset 3px 0 10px -4px var(--pri), inset 0 0 0 1px rgba(0,216,255,.03);
+    padding:13px 16px;
+  }
+  body[data-user="sylvain"] .task::before{
+    content:""; position:absolute; left:7px; top:7px; width:9px; height:9px;
+    border-left:1.5px solid rgba(0,216,255,.45); border-top:1.5px solid rgba(0,216,255,.45);
+    pointer-events:none;
+  }
+  body[data-user="sylvain"] .task::after{
+    content:""; position:absolute; right:7px; bottom:7px; width:9px; height:9px;
+    border-right:1.5px solid rgba(0,216,255,.3); border-bottom:1.5px solid rgba(0,216,255,.3);
+    pointer-events:none;
+  }
+  body[data-user="sylvain"] .check{width:28px; height:28px; border-width:1.5px}
+  body[data-user="sylvain"] .check.on{box-shadow:0 0 10px var(--pri), inset 0 0 6px color-mix(in srgb, var(--pri) 40%, transparent)}
+  body[data-user="sylvain"] .tab{
+    clip-path:polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 0 100%);
+    text-transform:uppercase; letter-spacing:.12em; font-size:.7rem; padding:9px 0;
+    border-color:rgba(0,216,255,.22); background:rgba(3,6,10,.7);
+  }
+  body[data-user="sylvain"] .tab.on{
+    color:#9feaff; border-color:#00d8ff;
+    box-shadow:0 0 0 1px rgba(0,216,255,.18), 0 0 12px rgba(0,216,255,.28);
+  }
+  body[data-user="sylvain"] .badge{
+    border-radius:3px; text-transform:uppercase; letter-spacing:.08em; font-size:.55rem;
+    background:rgba(2,4,7,.85); font-weight:600;
+  }
+  body[data-user="sylvain"] .badge::before{content:"▸ "; font-size:.5rem; opacity:.8}
+  body[data-user="sylvain"] .composer .box{
+    clip-path:polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
+    background:rgba(2,5,8,.93); border-color:rgba(0,216,255,.3);
+    box-shadow:0 0 18px rgba(0,216,255,.1);
+  }
+  body[data-user="sylvain"] .add-btn{
+    clip-path:polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+    border-radius:0; border:1px solid #00d8ff;
+    background:linear-gradient(160deg, rgba(0,216,255,.22), rgba(0,216,255,.08));
+    color:#bff4ff; text-shadow:0 0 8px rgba(0,216,255,.6);
+    box-shadow:0 0 14px rgba(0,216,255,.35);
+  }
+  body[data-user="sylvain"] .empty .big{color:var(--acc); text-shadow:0 0 16px rgba(0,216,255,.4)}
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
   html,body{margin:0; height:100%}
   body{
@@ -204,6 +265,7 @@
   .ornament{display:none; position:absolute; right:66px; top:10px; width:42px; height:42px; pointer-events:none}
   .ornament-hud{display:none; position:absolute; right:64px; top:4px; width:52px; height:52px; pointer-events:none}
   .ornament-theater{display:none; position:absolute; right:58px; top:2px; width:62px; height:58px; pointer-events:none}
+  .ornament-sys{display:none; position:absolute; right:62px; top:4px; width:50px; height:50px; pointer-events:none}
   .tabs{display:flex; gap:8px; padding:0 18px 10px}
   .tab{
     flex:1; text-align:center; padding:8px 0; border-radius:calc(var(--radius) - 2px); font-size:.85rem;
@@ -381,6 +443,14 @@
     <circle cx="58" cy="26" r="1.3" fill="#f0b8e8"/>
     <circle cx="49" cy="14" r="0.9" fill="#f4edff"/>
   </svg>
+  <svg class="ornament-sys" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+    <rect x="14" y="14" width="28" height="28" transform="rotate(45 28 28)" stroke="#00d8ff" stroke-opacity=".75" stroke-width="1.2"/>
+    <circle cx="28" cy="28" r="9.5" stroke="#00d8ff" stroke-opacity=".85" stroke-width="1.2"/>
+    <path d="M28 6 v7 M28 43 v7 M6 28 h7 M43 28 h7" stroke="#00d8ff" stroke-opacity=".7" stroke-width="1.2"/>
+    <circle cx="28" cy="28" r="2.6" fill="#00d8ff"/>
+    <circle cx="44" cy="12" r="2" fill="#ff3dcf"/>
+    <path d="M4 4 h8 M4 4 v8 M52 52 h-8 M52 52 v-8" stroke="#00d8ff" stroke-opacity=".45" stroke-width="1"/>
+  </svg>
   <h1>TASKS</h1>
   <span class="count" id="count"></span>
   <div class="avatar" id="avatar" title="Switch user">–</div>
@@ -446,7 +516,7 @@ const PRI = [
   {v:2, label:'HIGH', c:'#ff5964'},
 ];
 const USERS = [
-  {id:'sylvain', name:'Sylvain', role:'DAD',      initials:'SY', c1:'#5fb8c0', c2:'#e06565', panel:'#11181b', deep:'#0c1012', line:'#263135', meta:'#0c1012'},
+  {id:'sylvain', name:'Sylvain', role:'DAD',      initials:'SY', c1:'#00d8ff', c2:'#c96bff', panel:'#040709', deep:'#010204', line:'#16324a', meta:'#010204'},
   {id:'sylvie',  name:'Sylvie',  role:'MOM',      initials:'SV', c1:'#3d8bff', c2:'#a8d4ff', panel:'#050a14', deep:'#020409', line:'#1b2a47', meta:'#020409'},
   {id:'sara',    name:'Sara',    role:'DAUGHTER', initials:'SA', c1:'#c9a0ff', c2:'#f0b8e8', panel:'#120b1e', deep:'#0a0612', line:'#3a2a55', meta:'#0a0612'},
   {id:'cedric',  name:'Cedric',  role:'SON',      initials:'CE', c1:'#00e5ff', c2:'#9d6bff', panel:'#050912', deep:'#020308', line:'#1c2f4a', meta:'#020308'},
