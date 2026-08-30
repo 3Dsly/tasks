@@ -220,38 +220,39 @@
     background:linear-gradient(170deg, rgba(6, 16, 40, 0.95), rgba(3, 8, 22, 0.98));
     border:1.4px solid #143e75; border-radius:18px;
     box-shadow:0 6px 24px rgba(0,0,0,.6), 0 0 18px rgba(0, 162, 255, 0.18), inset 0 1px 0 rgba(126, 208, 255, 0.2);
-    padding:14px 14px 12px; display:flex; align-items:center; justify-content:space-between; position:relative; overflow:hidden;
-    margin-bottom:10px;
+    padding:12px 14px; display:flex; align-items:center; justify-content:space-between; position:relative; overflow:hidden;
+    margin-bottom:10px; cursor:pointer;
   }
   .sylvie-profile-left{
-    display:flex; align-items:center; gap:12px; z-index:2;
+    display:flex; align-items:center; gap:12px; z-index:2; flex:1; min-width:0; padding-right:95px;
   }
   .sylvie-cat-badge{
-    width:70px; height:70px; border-radius:50%; border:1.8px solid #00a2ff;
+    width:62px; height:62px; border-radius:50%; border:1.8px solid #00a2ff;
     box-shadow:0 0 16px rgba(0, 162, 255, 0.4), inset 0 0 10px rgba(0, 162, 255, 0.2);
     background:radial-gradient(circle at 50% 50%, #081738, #030818);
     display:flex; align-items:center; justify-content:center; flex:none;
   }
-  .sylvie-info{display:flex; flex-direction:column; gap:2px}
+  .sylvie-info{display:flex; flex-direction:column; gap:2px; min-width:0}
   .sylvie-name-row{
-    font-family:'Cinzel', system-ui, sans-serif; font-size:1.1rem; font-weight:800; letter-spacing:.16em;
-    color:#f0f8ff; display:flex; align-items:center; gap:6px;
+    font-family:'Cinzel', system-ui, sans-serif; font-size:1.05rem; font-weight:800; letter-spacing:.14em;
+    color:#f0f8ff; display:flex; align-items:center; gap:6px; flex-wrap:wrap;
   }
   .sylvie-wife-tag{
-    font-size:.74rem; color:#76b4ff; font-weight:600; font-family:system-ui, sans-serif; letter-spacing:.04em;
+    font-size:.72rem; color:#76b4ff; font-weight:600; font-family:system-ui, sans-serif; letter-spacing:.04em;
   }
   .sylvie-quote{
-    font-size:.76rem; font-style:italic; color:#7eb4eb; font-family:Georgia, serif; margin:2px 0 4px;
+    font-size:.74rem; font-style:italic; color:#7eb4eb; font-family:Georgia, serif; margin:2px 0 3px;
     line-height:1.2;
   }
   .sylvie-tags-row{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
   .sylvie-tag-chip{
-    font-size:.65rem; color:#d2e9ff; font-family:system-ui, sans-serif; display:inline-flex; align-items:center; gap:4px;
+    font-size:.64rem; color:#d2e9ff; font-family:system-ui, sans-serif; display:inline-flex; align-items:center; gap:4px;
   }
   .sylvie-piggy-art{
-    width:130px; height:80px; flex:none; z-index:1; opacity:.95; pointer-events:none;
-    display:flex; align-items:center; justify-content:flex-end;
+    position:absolute; right:8px; top:50%; transform:translateY(-50%); width:105px; height:75px;
+    z-index:1; opacity:.92; pointer-events:none; display:flex; align-items:center; justify-content:flex-end;
   }
+  .sylvie-piggy-art svg{width:100%; height:100%; object-fit:contain}
   .sylvie-btn{
     width:36px; height:36px; border-radius:10px; background:rgba(6, 16, 40, 0.85);
     border:1.2px solid rgba(0, 162, 255, 0.4); color:#e0f2fe; display:flex; align-items:center; justify-content:center;
@@ -279,8 +280,14 @@
   body[data-user="sylvie"] .sylvie-tab-icon{display:inline}
   
   /* Tasks for Sylvie */
+  body[data-user="sylvie"] #list{
+    padding-bottom:calc(150px + env(safe-area-inset-bottom));
+  }
+  body[data-user="sara"] #list{
+    padding-bottom:calc(110px + env(safe-area-inset-bottom));
+  }
   body[data-user="sylvie"] .task{
-    position:relative; overflow:hidden; margin:10px 0; padding:13px 14px 13px 16px;
+    position:relative; overflow:hidden; margin:10px 0; padding:12px 14px 12px 16px;
     background:linear-gradient(175deg, rgba(6, 16, 40, 0.94) 0%, rgba(3, 8, 22, 0.98) 100%);
     border:1.4px solid #143e75; border-radius:14px;
     box-shadow:0 6px 20px rgba(0,0,0,.6), 0 0 14px rgba(0, 162, 255, 0.12), inset 0 1px 0 rgba(126, 208, 255, 0.15);
@@ -290,7 +297,8 @@
     background:var(--pri, #00a2ff); border-radius:0 3px 3px 0;
     box-shadow:0 0 12px var(--pri, #00a2ff), 0 0 4px var(--pri, #00a2ff);
   }
-  body[data-user="sylvie"] .task .body{z-index:2; position:relative; min-width:0}
+  body[data-user="sylvie"] .task .body{z-index:2; position:relative; min-width:0; padding-right:85px}
+  body[data-user="sara"] .task .body{z-index:2; position:relative; min-width:0; padding-right:105px}
   body[data-user="sylvie"] .task .text{
     font-size:.98rem; font-weight:400; color:#f0f8ff; line-height:1.35;
     text-shadow:0 0 10px rgba(0, 162, 255, 0.2);
@@ -306,7 +314,7 @@
     box-shadow:0 0 14px rgba(0, 162, 255, 0.7); color:#020612;
   }
   body[data-user="sylvie"] .task-sylvie-art{
-    position:absolute; right:36px; top:0; bottom:0; width:110px;
+    position:absolute; right:36px; top:0; bottom:0; width:80px;
     pointer-events:none; z-index:1; opacity:.92; display:flex; align-items:center; justify-content:flex-end;
   }
   body[data-user="sylvie"] .task-sylvie-art svg{
@@ -332,8 +340,8 @@
   
   /* Composer for Sylvie */
   body[data-user="sylvie"] .composer{
-    position:fixed; bottom:56px; left:0; right:0; display:flex; flex-direction:column; align-items:center;
-    padding:6px 14px; background:linear-gradient(to top, #020612 85%, transparent); z-index:10;
+    position:fixed; bottom:52px; left:0; right:0; display:flex; justify-content:center;
+    padding:6px 12px; background:linear-gradient(to top, #020612 90%, transparent); z-index:10;
   }
   body[data-user="sylvie"] .composer .box{
     width:min(616px,100%); background:rgba(5, 14, 34, 0.95); backdrop-filter:blur(14px); border-radius:14px;
@@ -359,22 +367,27 @@
   
   /* Bottom Dock Navigation for Sylvie */
   .sylvie-dock{
-    display:none; position:fixed; bottom:0; left:0; right:0; z-index:15;
-    background:#02050e; border-top:1px solid #143e75;
-    padding:6px 18px calc(6px + env(safe-area-inset-bottom));
-    justify-content:space-between; align-items:center; max-width:640px; margin:0 auto;
+    display:none; position:fixed; bottom:0; left:0; right:0; z-index:20;
+    background:#030816; border-top:1px solid #143e75;
+    padding:6px 14px calc(6px + env(safe-area-inset-bottom));
+    justify-content:space-between; align-items:center; width:100%; max-width:640px; margin:0 auto;
+    box-shadow:0 -4px 20px rgba(0,0,0,0.7);
   }
   body[data-user="sylvie"] .sylvie-dock{display:flex}
   .sylvie-dock-item{
-    display:flex; flex-direction:column; align-items:center; gap:2px; font-size:.62rem;
-    font-weight:700; letter-spacing:.06em; color:var(--dim); cursor:pointer; text-transform:uppercase;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:3px; font-size:.62rem; font-weight:700; letter-spacing:.06em;
+    color:var(--dim); cursor:pointer; text-transform:uppercase; flex:1; padding:4px 0;
   }
   .sylvie-dock-item.active{color:#00a2ff; text-shadow:0 0 8px rgba(0,162,255,0.6)}
+  .sylvie-dock-fab-wrap{
+    flex:1; display:flex; justify-content:center; align-items:center;
+  }
   .sylvie-dock-fab{
-    width:44px; height:44px; border-radius:50%; background:radial-gradient(circle at 50% 50%, #0a2552, #020818);
-    border:1.8px solid #00a2ff; box-shadow:0 0 16px rgba(0,162,255,0.45);
-    display:flex; align-items:center; justify-content:center; color:#00a2ff; font-size:1.5rem; font-weight:300;
-    cursor:pointer; margin-top:-14px;
+    width:46px; height:46px; border-radius:50%; background:radial-gradient(circle at 50% 50%, #0a2858, #020818);
+    border:1.8px solid #00a2ff; box-shadow:0 0 16px rgba(0,162,255,0.5);
+    display:flex; align-items:center; justify-content:center; color:#00a2ff; font-size:1.6rem; font-weight:300;
+    cursor:pointer; margin-top:-16px;
   }
   /* Cedric — rich indigo */
   body[data-user="cedric"]{
@@ -804,7 +817,7 @@
       <button class="sylvie-btn" id="sylvieNavMenu" title="Navigation">☰</button>
       <button class="sylvie-btn" id="sylvieNavCollapse" title="Dropdown">⌵</button>
     </div>
-    <div class="sylvie-title-center">
+    <div class="sylvie-title-center" id="sylvieTitleCenter" style="cursor:pointer" title="Switch user">
       <div class="sylvie-main-title">T A S K S</div>
       <div class="sylvie-subtitle">3dsly.github.io</div>
     </div>
@@ -817,10 +830,10 @@
     </div>
   </div>
 
-  <div class="sylvie-profile-card">
+  <div class="sylvie-profile-card" id="sylvieProfileCard" title="Tap to switch user">
     <div class="sylvie-profile-left">
       <!-- Glowing Cat Avatar with Potted Plant and Heart -->
-      <div class="sylvie-cat-badge">
+      <div class="sylvie-cat-badge" id="sylvieCatBadge">
         <svg viewBox="0 0 64 64" width="56" height="56" fill="none">
           <!-- Cat body & face -->
           <ellipse cx="28" cy="42" rx="13" ry="15" fill="#05122e" stroke="#00a2ff" stroke-width="1.3"/>
@@ -924,20 +937,22 @@
 
 <!-- Bottom Dock Navigation Bar for Sylvie -->
 <div class="sylvie-dock">
-  <div class="sylvie-dock-item active">
+  <div class="sylvie-dock-item active" id="sylvieDockTasks" title="Tasks">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
     TASKS
   </div>
-  <div class="sylvie-dock-item">
+  <div class="sylvie-dock-item" id="sylvieDockStats" title="Statistics">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
     STATS
   </div>
-  <div class="sylvie-dock-fab" id="sylvieFabBtn" title="Add Task">+</div>
-  <div class="sylvie-dock-item">
+  <div class="sylvie-dock-fab-wrap">
+    <button class="sylvie-dock-fab" id="sylvieFabBtn" title="Add Task">+</button>
+  </div>
+  <div class="sylvie-dock-item" id="sylvieDockCal" title="Calendar">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
     CALENDAR
   </div>
-  <div class="sylvie-dock-item" id="sylvieSettingsBtn">
+  <div class="sylvie-dock-item" id="sylvieSettingsBtn" title="Settings & Switch User">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     SETTINGS
   </div>
@@ -1471,7 +1486,28 @@ if ($('sylvieShareBtn')) $('sylvieShareBtn').addEventListener('click', ()=>{
     navigator.clipboard ? navigator.clipboard.writeText(location.href).then(()=> toast('Link copied!')) : toast('Tasks: ' + location.href);
   }
 });
-if ($('sylvieFabBtn')) $('sylvieFabBtn').addEventListener('click', ()=>{ $('newText').focus(); });
+if ($('sylvieProfileCard')) $('sylvieProfileCard').addEventListener('click', showPicker);
+if ($('sylvieTitleCenter')) $('sylvieTitleCenter').addEventListener('click', showPicker);
+
+if ($('sylvieDockTasks')) $('sylvieDockTasks').addEventListener('click', ()=>{
+  filter = 'all';
+  document.querySelectorAll('.tab').forEach(t=> t.classList.toggle('on', t.dataset.f === 'all'));
+  $('sylvieDockTasks').classList.add('active');
+  if ($('sylvieDockStats')) $('sylvieDockStats').classList.remove('active');
+  render();
+});
+if ($('sylvieDockStats')) $('sylvieDockStats').addEventListener('click', ()=>{
+  const active = tasks.filter(t=>!t.done).length;
+  const done = tasks.filter(t=>t.done).length;
+  toast('📊 Stats: ' + tasks.length + ' tasks (' + active + ' to do, ' + done + ' done)');
+});
+if ($('sylvieFabBtn')) $('sylvieFabBtn').addEventListener('click', ()=>{
+  $('newText').focus();
+  $('newText').scrollIntoView({behavior:'smooth', block:'center'});
+});
+if ($('sylvieDockCal')) $('sylvieDockCal').addEventListener('click', ()=>{
+  if (tasks.length) { exportData(); } else { toast('📅 Calendar: No tasks to export'); }
+});
 if ($('sylvieSettingsBtn')) $('sylvieSettingsBtn').addEventListener('click', ()=> $('menu').classList.add('show'));
 list.addEventListener('click', e=>{
   const btn = e.target.closest('[data-act]');
