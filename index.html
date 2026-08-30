@@ -158,14 +158,13 @@
     padding:8px 14px calc(14px + env(safe-area-inset-bottom));
     background:linear-gradient(to top, #07020e 85%, transparent); z-index:10;
   }
-  body[data-user="sara"] .composer-wrap{
-    width:100%; max-width:616px; display:flex; flex-direction:column; align-items:center; position:relative; margin:0 auto;
-  }
+  .sara-composer-cat, .sara-masks-filigree{display:none}
+  .composer-left-icon{display:none}
   body[data-user="sara"] .sara-composer-cat{
-    position:absolute; left:-12px; bottom:14px; width:56px; height:74px; pointer-events:none; z-index:11;
+    display:block; position:absolute; left:-12px; bottom:14px; width:56px; height:74px; pointer-events:none; z-index:11;
   }
   body[data-user="sara"] .sara-masks-filigree{
-    width:100%; max-width:300px; height:26px; margin-top:5px; pointer-events:none; opacity:.9;
+    display:block; width:100%; max-width:300px; height:26px; margin-top:5px; pointer-events:none; opacity:.9;
   }
   body[data-user="sara"] .composer .box{
     width:100%; background:rgba(18,7,32,.96); backdrop-filter:blur(14px); border-radius:20px;
@@ -343,17 +342,21 @@
   
   /* Composer for Sylvie */
   body[data-user="sylvie"] .composer{
-    position:fixed; bottom:52px; left:0; right:0; display:flex; justify-content:center;
-    padding:6px 14px; background:linear-gradient(to top, #020612 92%, transparent); z-index:10;
+    position:fixed; bottom:56px; left:0; right:0; display:flex; justify-content:center;
+    padding:4px 14px 6px; background:linear-gradient(to top, #020612 92%, transparent); z-index:10;
+    max-width:640px; margin:0 auto; box-sizing:border-box;
   }
   body[data-user="sylvie"] .composer-wrap{
-    width:100%; max-width:616px; display:flex; flex-direction:column; align-items:center; position:relative; margin:0 auto;
+    width:100%; max-width:616px; display:flex; justify-content:center; align-items:center; position:relative; margin:0 auto;
   }
   body[data-user="sylvie"] .composer .box{
     width:100%; background:rgba(6, 16, 40, 0.96); backdrop-filter:blur(14px); border-radius:14px;
     border:1.4px solid rgba(0, 162, 255, 0.45);
     box-shadow:0 0 22px rgba(0, 162, 255, 0.2), inset 0 1px 0 rgba(126, 208, 255, 0.18);
-    padding:8px 12px; display:flex; align-items:center; gap:8px; box-sizing:border-box;
+    padding:6px 10px; display:flex; align-items:center; gap:8px; box-sizing:border-box;
+  }
+  body[data-user="sylvie"] .composer-left-icon{
+    display:flex; align-items:center; justify-content:center; color:#00a2ff; opacity:.75; flex:none;
   }
   body[data-user="sylvie"] .composer input[type=text]{
     font-size:16px !important; color:#ffffff !important; flex:1; min-width:0;
@@ -378,27 +381,32 @@
   /* Bottom Dock Navigation for Sylvie */
   .sylvie-dock{
     display:none; position:fixed; bottom:0; left:0; right:0; z-index:20;
-    background:#030816; border-top:1px solid #143e75;
-    padding:6px 14px calc(6px + env(safe-area-inset-bottom));
-    justify-content:space-between; align-items:center; width:100%; max-width:640px; margin:0 auto;
-    box-shadow:0 -4px 20px rgba(0,0,0,0.7);
+    background:#020612; border-top:1px solid #143e75;
+    padding:6px 12px calc(8px + env(safe-area-inset-bottom));
+    justify-content:space-around; align-items:center; width:100%; max-width:640px; margin:0 auto;
+    box-shadow:0 -4px 20px rgba(0,0,0,0.8); box-sizing:border-box;
   }
   body[data-user="sylvie"] .sylvie-dock{display:flex}
   .sylvie-dock-item{
     display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:3px; font-size:.62rem; font-weight:700; letter-spacing:.06em;
-    color:var(--dim); cursor:pointer; text-transform:uppercase; flex:1; padding:4px 0;
+    gap:3px; font-size:.62rem; font-weight:700; letter-spacing:.08em;
+    color:var(--dim); cursor:pointer; text-transform:uppercase; flex:1; text-align:center;
+    padding:4px 0; -webkit-tap-highlight-color:transparent;
   }
-  .sylvie-dock-item.active{color:#00a2ff; text-shadow:0 0 8px rgba(0,162,255,0.6)}
+  .sylvie-dock-item svg{stroke:var(--dim); transition:stroke .15s}
+  .sylvie-dock-item.active{color:#00a2ff; text-shadow:0 0 10px rgba(0,162,255,0.7)}
+  .sylvie-dock-item.active svg{stroke:#00a2ff; filter:drop-shadow(0 0 6px rgba(0,162,255,0.7))}
   .sylvie-dock-fab-wrap{
     flex:1; display:flex; justify-content:center; align-items:center;
   }
   .sylvie-dock-fab{
-    width:46px; height:46px; border-radius:50%; background:radial-gradient(circle at 50% 50%, #0a2858, #020818);
-    border:1.8px solid #00a2ff; box-shadow:0 0 16px rgba(0,162,255,0.5);
+    width:48px; height:48px; border-radius:50%; background:radial-gradient(circle at 50% 50%, #0a2552, #020818);
+    border:1.8px solid #00a2ff; box-shadow:0 0 18px rgba(0,162,255,0.6), inset 0 0 8px rgba(0,162,255,0.3);
     display:flex; align-items:center; justify-content:center; color:#00a2ff; font-size:1.6rem; font-weight:300;
-    cursor:pointer; margin-top:-16px;
+    cursor:pointer; margin-top:-18px; line-height:1; padding:0;
+    transition:transform .12s, box-shadow .12s;
   }
+  .sylvie-dock-fab:active{transform:scale(0.92); box-shadow:0 0 24px rgba(0,162,255,0.9)}
   /* Cedric — rich indigo */
   body[data-user="cedric"]{
     --bg:#020308; --bg2:#060a18; --panel:#050912; --line:#1c2f4a; --txt:#eafcff; --dim:#6f88a6;
@@ -931,8 +939,15 @@
       <circle cx="44" cy="48" r="0.9" fill="#d8aeff" opacity=".8"/>
     </svg>
     <div class="box">
+      <div class="composer-left-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="16"/>
+          <line x1="8" y1="12" x2="16" y2="12"/>
+        </svg>
+      </div>
       <input type="text" id="newText" placeholder="Add a task…" autocomplete="off" maxlength="200">
-      <input type="date" id="newDue" title="Due date">
+      <input type="date" id="newDue" title="Due date" style="display:none">
       <button class="pri-cycle" id="priBtn" title="Priority">MED ⌵</button>
       <button class="add-btn" id="addBtn">+</button>
     </div>
