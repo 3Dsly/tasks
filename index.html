@@ -306,10 +306,12 @@
     text-shadow:0 0 10px rgba(0, 162, 255, 0.2);
   }
   body[data-user="sylvie"] .task .check{
-    width:30px; height:30px; flex:none; border-radius:50%;
+    width:32px; height:32px; flex:none; border-radius:50%;
     border:1.8px solid #00a2ff; background:rgba(4, 12, 28, 0.6);
     box-shadow:0 0 10px rgba(0, 162, 255, 0.3), inset 0 0 6px rgba(0, 162, 255, 0.15);
-    color:#f0f8ff; font-size:1rem; cursor:pointer;
+    color:#f0f8ff; font-size:1.05rem; cursor:pointer; position:relative; z-index:5;
+    display:flex; align-items:center; justify-content:center;
+    -webkit-tap-highlight-color:transparent;
   }
   body[data-user="sylvie"] .task .check.on{
     background:linear-gradient(135deg, #0077ff, #00d8ff); border-color:#7ed0ff;
@@ -1368,17 +1370,19 @@ function addTask(text, due, pri, remindAt){
   return true;
 }
 function toggleTask(id){
-  const t = tasks.find(x=>x.id===id); if (!t) return;
+  const t = tasks.find(x => String(x.id) === String(id));
+  if (!t) return;
   t.done = !t.done;
   t.completedAt = t.done ? Date.now() : null;
   save(); render();
 }
 function deleteTask(id){
-  tasks = tasks.filter(x=>x.id!==id);
+  tasks = tasks.filter(x => String(x.id) !== String(id));
   save(); render();
 }
 function updateTask(id, patch){
-  const t = tasks.find(x=>x.id===id); if (!t) return;
+  const t = tasks.find(x => String(x.id) === String(id));
+  if (!t) return;
   if (patch.remindAt !== undefined && patch.remindAt !== t.remindAt) patch.reminded = false;
   Object.assign(t, patch);
   save(); render();
@@ -1548,11 +1552,19 @@ if ($('sylvieSettingsBtn')) $('sylvieSettingsBtn').addEventListener('click', ()=
 list.addEventListener('click', e=>{
   const btn = e.target.closest('[data-act]');
   if (!btn) return;
-  const id = btn.closest('.task').dataset.id;
+  const taskEl = btn.closest('.task');
+  if (!taskEl) return;
+  const id = taskEl.dataset.id;
   const act = btn.dataset.act;
-  if (act==='toggle') toggleTask(id);
-  else if (act==='del') deleteTask(id);
-  else if (act==='edit') openSheet(id);
+  if (act === 'toggle'){
+    e.stopPropagation();
+    toggleTask(id);
+  } else if (act === 'del'){
+    e.stopPropagation();
+    deleteTask(id);
+  } else if (act === 'edit'){
+    openSheet(id);
+  }
 });
 $('tabs').addEventListener('click', e=>{
   const tab = e.target.closest('.tab'); if (!tab) return;
@@ -1561,7 +1573,8 @@ $('tabs').addEventListener('click', e=>{
   render();
 });
 function openSheet(id){
-  const t = tasks.find(x=>x.id===id); if (!t) return;
+  const t = tasks.find(x => String(x.id) === String(id));
+  if (!t) return;
   editId = id;
   $('editText').value = t.text;
   $('editDue').value = t.due || '';
