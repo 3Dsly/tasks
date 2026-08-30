@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0a0e1a" id="themeColorMeta">
 <title>Tasks</title>
 <link rel="manifest" href="manifest.json">
@@ -154,12 +154,12 @@
     text-shadow:0 0 10px rgba(216,174,255,.6); cursor:pointer;
   }
   body[data-user="sara"] .composer{
-    position:fixed; bottom:0; left:0; right:0; display:flex; flex-direction:column; align-items:center;
-    padding:10px 14px calc(14px + env(safe-area-inset-bottom));
-    background:linear-gradient(to top, #07020e 80%, transparent); z-index:10;
+    position:fixed; bottom:0; left:0; right:0; display:flex; justify-content:center;
+    padding:8px 14px calc(14px + env(safe-area-inset-bottom));
+    background:linear-gradient(to top, #07020e 85%, transparent); z-index:10;
   }
   body[data-user="sara"] .composer-wrap{
-    position:relative; width:min(616px,100%); display:flex; flex-direction:column; align-items:center;
+    width:100%; max-width:616px; display:flex; flex-direction:column; align-items:center; position:relative; margin:0 auto;
   }
   body[data-user="sara"] .sara-composer-cat{
     position:absolute; left:-12px; bottom:14px; width:56px; height:74px; pointer-events:none; z-index:11;
@@ -168,19 +168,22 @@
     width:100%; max-width:300px; height:26px; margin-top:5px; pointer-events:none; opacity:.9;
   }
   body[data-user="sara"] .composer .box{
-    width:100%; background:rgba(18,7,32,.95); backdrop-filter:blur(14px); border-radius:20px;
+    width:100%; background:rgba(18,7,32,.96); backdrop-filter:blur(14px); border-radius:20px;
     border:1.4px solid rgba(216,174,255,.45);
     box-shadow:0 0 25px rgba(181,110,255,.22), inset 0 1px 0 rgba(248,188,240,.25);
-    padding:8px 10px 8px 38px;
+    padding:8px 12px 8px 38px; display:flex; align-items:center; gap:8px; box-sizing:border-box;
   }
   body[data-user="sara"] .composer input[type=text]{
-    font-family:'Playfair Display', Georgia, serif; font-style:italic; font-size:1.02rem;
-    color:#fcf7ff;
+    font-family:'Playfair Display', Georgia, serif; font-style:italic; font-size:16px !important;
+    color:#ffffff !important; flex:1; min-width:0; background:transparent; border:none; outline:none; padding:4px 0;
+  }
+  body[data-user="sara"] .composer input[type=text]::placeholder{
+    color:#aa94cc; opacity:0.85;
   }
   body[data-user="sara"] .pri-cycle{
     border-radius:12px; border:1px solid rgba(216,174,255,.35); color:#d8aeff;
     background:rgba(28,12,50,.75); font-family:system-ui, -apple-system, sans-serif; font-weight:700;
-    font-size:.7rem; padding:6px 10px; letter-spacing:.04em;
+    font-size:.7rem; padding:6px 10px; letter-spacing:.04em; flex:none;
   }
   body[data-user="sara"] .add-btn{
     border-radius:14px; width:42px; height:40px; padding:0; flex:none;
@@ -341,21 +344,28 @@
   /* Composer for Sylvie */
   body[data-user="sylvie"] .composer{
     position:fixed; bottom:52px; left:0; right:0; display:flex; justify-content:center;
-    padding:6px 12px; background:linear-gradient(to top, #020612 90%, transparent); z-index:10;
+    padding:6px 14px; background:linear-gradient(to top, #020612 92%, transparent); z-index:10;
+  }
+  body[data-user="sylvie"] .composer-wrap{
+    width:100%; max-width:616px; display:flex; flex-direction:column; align-items:center; position:relative; margin:0 auto;
   }
   body[data-user="sylvie"] .composer .box{
-    width:min(616px,100%); background:rgba(5, 14, 34, 0.95); backdrop-filter:blur(14px); border-radius:14px;
-    border:1.3px solid rgba(0, 162, 255, 0.45);
+    width:100%; background:rgba(6, 16, 40, 0.96); backdrop-filter:blur(14px); border-radius:14px;
+    border:1.4px solid rgba(0, 162, 255, 0.45);
     box-shadow:0 0 22px rgba(0, 162, 255, 0.2), inset 0 1px 0 rgba(126, 208, 255, 0.18);
-    padding:8px 10px;
+    padding:8px 12px; display:flex; align-items:center; gap:8px; box-sizing:border-box;
   }
   body[data-user="sylvie"] .composer input[type=text]{
-    font-size:.96rem; color:#f0f8ff;
+    font-size:16px !important; color:#ffffff !important; flex:1; min-width:0;
+    background:transparent; border:none; outline:none; padding:4px 0;
+  }
+  body[data-user="sylvie"] .composer input[type=text]::placeholder{
+    color:#769cc4; opacity:0.85;
   }
   body[data-user="sylvie"] .pri-cycle{
     border-radius:8px; border:1px solid rgba(0, 162, 255, 0.4); color:#00a2ff;
     background:rgba(8, 20, 48, 0.85); font-family:system-ui, sans-serif; font-weight:700;
-    font-size:.68rem; padding:6px 10px; letter-spacing:.05em; text-transform:uppercase;
+    font-size:.68rem; padding:6px 10px; letter-spacing:.05em; text-transform:uppercase; flex:none;
   }
   body[data-user="sylvie"] .add-btn{
     border-radius:10px; width:38px; height:36px; padding:0; flex:none;
@@ -516,12 +526,13 @@
   }
   body[data-user="sylvain"] .empty .big{color:var(--acc); text-shadow:0 0 16px rgba(0,216,255,.4)}
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
-  html,body{margin:0; height:100%}
+  html,body{margin:0; min-height:100%; width:100%; overflow-x:hidden}
   body{
     background:radial-gradient(900px 500px at 50% -10%, var(--bg2) 0%, var(--bg) 55%);
     color:var(--txt); font-family:'Segoe UI', system-ui, -apple-system, sans-serif;
-    display:flex; flex-direction:column; max-width:640px; margin:0 auto;
+    display:flex; flex-direction:column; width:100%; max-width:640px; margin:0 auto;
     padding-top:env(safe-area-inset-top);
+    box-sizing:border-box;
     user-select:none;
     transition:background .3s;
   }
@@ -587,26 +598,36 @@
   .empty .big{font-size:2.2rem; display:block; margin-bottom:8px}
   .composer{
     position:fixed; bottom:0; left:0; right:0; display:flex; justify-content:center;
-    padding:10px 12px calc(12px + env(safe-area-inset-bottom));
-    background:linear-gradient(to top, var(--bg) 60%, transparent); z-index:10;
+    padding:8px 14px calc(12px + env(safe-area-inset-bottom));
+    background:linear-gradient(to top, var(--bg) 75%, transparent); z-index:10;
+  }
+  .composer-wrap{
+    width:100%; max-width:616px; display:flex; flex-direction:column; align-items:center; position:relative; margin:0 auto;
   }
   .composer .box{
-    display:flex; align-items:center; gap:8px; width:min(616px,100%);
+    display:flex; align-items:center; gap:8px; width:100%;
     background:var(--panel); border:1px solid var(--line); border-radius:calc(var(--radius) + 4px);
-    padding:8px 10px; box-shadow:0 8px 30px rgba(0,0,0,.5);
+    padding:8px 12px; box-shadow:0 8px 30px rgba(0,0,0,.5); box-sizing:border-box;
   }
   .composer input[type=text]{
-    flex:1; background:none; border:none; outline:none; color:var(--txt); font-size:16px; min-width:0;
+    flex:1; background:transparent; border:none; outline:none; color:#ffffff !important;
+    font-size:16px !important; min-width:0; padding:4px 0; -webkit-appearance:none;
   }
-  .composer input[type=date]{background:none; border:none; outline:none; color:var(--acc); font-size:.8rem; color-scheme:dark}
+  .composer input[type=text]::placeholder{
+    color:var(--dim); opacity:0.8;
+  }
+  .composer input[type=date]{
+    background:transparent; border:none; outline:none; color:var(--acc); font-size:13px;
+    color-scheme:dark; width:auto; max-width:110px; cursor:pointer; flex:none;
+  }
   .pri-cycle{
     background:none; border:1px solid var(--line); border-radius:12px; padding:6px 10px;
-    font-size:.7rem; cursor:pointer; font-weight:700;
+    font-size:.7rem; cursor:pointer; font-weight:700; flex:none;
   }
   .add-btn{
     background:linear-gradient(135deg, color-mix(in srgb, var(--acc) 55%, var(--panel)), var(--acc));
     border:none; color:#04101f; font-weight:800; font-size:1rem; border-radius:calc(var(--radius) - 2px);
-    padding:9px 16px; cursor:pointer;
+    padding:9px 16px; cursor:pointer; flex:none;
   }
   #sheet{
     position:fixed; inset:0; z-index:30; display:none; align-items:flex-end; justify-content:center;
