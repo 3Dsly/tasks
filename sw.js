@@ -1,4 +1,4 @@
-const CACHE = 'tasks-v5';
+const CACHE = 'tasks-v6';
 const SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './icon-512-maskable.png'];
 
 self.addEventListener('install', e => {
